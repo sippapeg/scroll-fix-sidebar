@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>scroll fix sidebar</title>
+	<link rel="stylesheet" href="">
+	<script
+	  src="https://code.jquery.com/jquery-1.12.4.js"
+	  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+	  crossorigin="anonymous"></script>
+	  	<style>
+			body{margin:0;}
+	  		.main{
+	  			width:100%;
+	  			max-width: 700px;
+	  			margin:0 auto;
+	  		}
+	  		.content{width: 500px;float: left;background-color: #ccc;height:1500px;}
+	  		.sidebar{width: 200px;float: left;background-color: #999;}
+	  		.a{height:300px;}
+	  		.ads{height:600px;background-color: #00f;overflow: hidden;}
+	  		.ads img{height:100%;}
+	  		.clear{clear: both;height:0;width: 100%;}
+	  		.row{height:500px;background-color: #333;width: 100%}
+	  		.space{background-color: #0f0;}
+	  	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="content"></div>
+		<div class="sidebar">
+			<div class="a"></div>
+			<div class="space"></div>
+			<div class="ads">
+				<img src="img.jpg" alt="">
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="row"></div>
+	<script>
+		var scroll;
+		var window_height = $(window).height();
+		var content_height = $('.content').height();
+		var a_height = $('.a').height();
+		var ads_height = $('.ads').height();
+		var ads_top_pos = $('.ads').offset().top;
+		var row_top_pos = $('.row').offset().top;
+		var space_height;
+		$(document).ready(function(){
+			$('.space').css({'max-height':content_height-(a_height+ads_height)});
+			$(window).scroll(function(){
+				scroll = $(window).scrollTop();
+				space_height = scroll - ads_top_pos;
+				if(scroll >= ads_top_pos){
+					$('.space').css({'height':space_height});
+				}
+				if(scroll < ads_top_pos){
+					$('.space').css({'height':0});
+				}
+
+			});
+		});
+	</script>
+</body>
+</html>
