@@ -24,6 +24,11 @@
 	  		.clear{clear: both;height:0;width: 100%;}
 	  		.row{height:500px;background-color: #333;width: 100%}
 	  		.space{background-color: #0f0;}
+	  		.fixed{
+	  			position: fixed;
+	  			top:0;
+	  			width: 200px;
+	  		}
 	  	</style>
 </head>
 <body>
@@ -47,16 +52,22 @@
 		var ads_top_pos = $('.ads').offset().top;
 		var row_top_pos = $('.row').offset().top;
 		var space_height;
+		var max_height = content_height-(a_height+ads_height);
 		$(document).ready(function(){
-			$('.space').css({'max-height':content_height-(a_height+ads_height)});
+			$('.space').css({'max-height':max_height});
 			$(window).scroll(function(){
 				scroll = $(window).scrollTop();
 				space_height = scroll - ads_top_pos;
 				if(scroll >= ads_top_pos){
 					$('.space').css({'height':space_height});
+					$('.ads').addClass('fixed');
+				}
+				if(scroll >= max_height+a_height){
+					$('.ads').removeClass('fixed');
 				}
 				if(scroll < ads_top_pos){
 					$('.space').css({'height':0});
+					$('.ads').removeClass('fixed');
 				}
 
 			});
